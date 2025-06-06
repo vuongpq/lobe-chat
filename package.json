@@ -364,7 +364,9 @@
       "@vercel/speed-insights"
     ],
     "overrides": {
-      "mdast-util-gfm-autolink-literal": "2.0.0"
+      "mdast-util-gfm-autolink-literal": "2.0.0",
+      "react": "18.2.0",
+      "react-dom": "18.2.0"
     },
     "packageExtensions": {
       "@inkjs/ui": {
