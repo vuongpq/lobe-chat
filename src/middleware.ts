@@ -156,7 +156,7 @@ const isProtectedRoute = createRouteMatcher([
 const nextAuthMiddleware = NextAuthEdge.auth((req) => {
   logNextAuth('NextAuth middleware processing request: %s %s', req.method, req.url);
 
-  const response = defaultMiddleware(req);
+  const response = defaultMiddleware(req as unknown as NextRequest);
 
   // when enable auth protection, only public route is not protected, others are all protected
   const isProtected = appEnv.ENABLE_AUTH_PROTECTION ? !isPublicRoute(req) : isProtectedRoute(req);
@@ -222,7 +222,7 @@ const clerkAuthMiddleware = clerkMiddleware(
       }
     }
 
-    const response = defaultMiddleware(req);
+    const response = defaultMiddleware(req as unknown as NextRequest);
 
     const data = await auth();
     logClerk('Clerk auth status: %O', {
