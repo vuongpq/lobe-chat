@@ -213,7 +213,13 @@ const clerkAuthMiddleware = clerkMiddleware(
 
     if (isProtected) {
       logClerk('Protecting route: %s', req.url);
-      await auth.protect();
+      const { userId } = await auth();
+      if (!userId) {
+        logClerk('User not authenticated, redirecting to sign-in page');
+        const signInUrl = new URL('/login', req.nextUrl.origin);
+        signInUrl.searchParams.set('callbackUrl', req.nextUrl.href);
+        return Response.redirect(signInUrl);
+      }
     }
 
     const response = defaultMiddleware(req);
